@@ -11,6 +11,9 @@ export default class Ball {
     }
 
     reset() {
+        // this.ax = 1;
+        // this.ay = 1;
+
         this.x = this.boardWidth / 2;
         this.y = this.boardHeight / 2;
        
@@ -39,12 +42,42 @@ export default class Ball {
                 
             
         }
-    render(svg){
+        paddleCollision(player1, player2) {
+        if (this.vx > 0) {
+            let paddle = player2.coordinates(player2.x, player2.y, player2.width, player2.height);
+            let [leftX, rightX, topY, bottomY] = paddle;
+
+            if(
+                (this.x + this.radius >= leftX) && 
+                (this.x + this.radius <= rightX) &&
+                (this.y >= topY && this.y <= bottomY)
+            ){
+            this.vx *= -1;
+
+            }
+        //   } else { 
+        //     let paddle = player1.coordinates(player1.x, player1.y, player1.width, player1.height);
+        //     let [leftX, rightX, topY, bottomY] = paddle;
+
+        //     if(
+        //         (this.x + this.radius >= rightX) &&
+        //         (this.x + this.radius <=leftX) &&
+        //         (this.y >= topY && this.y <=bottomY)
+        //     ){
+        //         this.vx *= -1;
+        //     }
+          }
+        }
+    render(svg, player1, player2){
+
+        // this.vx += this.ax;
+        // this.vy += this.ay;
 
         this.x += this.vx;
         this.y += this.vy;
 
         this.wallCollison();
+        this.paddleCollision(player1, player2)
 
             //draw ball
         let ball = document.createElementNS(SVG_NS, 'circle');
