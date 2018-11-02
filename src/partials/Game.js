@@ -19,6 +19,7 @@ export default class Game {
 		this.boardHeight = 256;
 		this.radius = 8;
 		this.direction = 1;
+		
 
 		this.ball = new Ball(
 			this.radius,
