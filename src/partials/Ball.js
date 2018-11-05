@@ -1,6 +1,4 @@
 import { SVG_NS } from '../settings'
-import { timingSafeEqual } from 'crypto';
-import { globalAgent } from 'https';
 export default class Ball {
     constructor(radius, boardWidth, boardHeight) {
       this.radius = radius;
@@ -8,13 +6,14 @@ export default class Ball {
       this.boardHeight = boardHeight;
       this.direction = 1;
       this.reset()
-      this.ping = new Audio("public/sounds/pong-01.wav");
+      this.ping = new Audio("public/sounds/tennnisGrunt.wav");
+      
       
     }
 
     reset() {
-        // this.ax = .01;
-        // this.ay = .01;
+        this.ax = .01;
+        this.ay = .01;
 
         this.x = this.boardWidth / 2;
         this.y = this.boardHeight / 2;
@@ -76,13 +75,14 @@ export default class Ball {
         goal(player) {
             player.score++;
             this.reset();
-            console.log(player.score)
+            
         }
 
+        
     render(svg, player1, player2){
 
-        // this.vx += this.ax;
-        // this.vy += this.ay;
+        this.vx += this.ax;
+        this.vy += this.ay;
 
         const rightGoal = this.x + this.radius >= this.boardWidth;
         const leftGoal = this.x - this.radius <=0;

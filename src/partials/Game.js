@@ -3,11 +3,12 @@ import Board from './Board';
 import Paddle from './Paddle';
 import Ball from './Ball';
 import Score from './Score';
-// import { SVG_NS, keys} from "./Paddle"
+import Winner from './Winner';
+
 
 export default class Game {
 
-	constructor(element, width, height, spaceBar) {
+	constructor(element, width, height) {
 		this.element = element;
 		this.width = width;
 		this.height = height;
@@ -24,9 +25,9 @@ export default class Game {
 
 		
 		
-		document.addEventListener("keydown", event => {
+		document.addEventListener('keydown', event => {
 			switch (event.key) {
-	  case KEYS.spaceBar:
+	case KEYS.spaceBar:
 		this.pause = !this.pause;
 		break;
 			}});
@@ -71,8 +72,27 @@ export default class Game {
 		// Other code goes here...
 		this.gameElement = document.getElementById(this.element);
 		this.board = new Board(this.width, this.height);
+
+		this.winner1 = new Winner(this.width / 2 - 256, this.height / 2, 25);
+		this.winner2 = new Winner(this.width / 2, this.height / 2, 25); 
 		
 	} // end of constructor
+
+	winningText(player1, player2, svg) {
+		if (player1.score >= 10) {
+			
+				this.pause = !this.pause;
+				
+			this.winner1.render(svg, 'left paddle Win');
+			
+			
+		} 	else if (player2.score >= 10) {
+				this.pause = !this.pause;
+				
+			this.winner2.render(svg, 'right paddle Win');
+			
+		}
+	}
 
 	render() {
 
@@ -94,6 +114,9 @@ export default class Game {
 
 		this.score1.render(svg, this.player1.score);
 		this.score2.render(svg, this.player2.score);
+		this.winningText(this.player1, this.player2, svg);
+		
+		
 	}
 
 }
