@@ -1,5 +1,5 @@
 # Pong Game
-
+![screenshot](/pong.PNG "inhabitent homepage screenshot")
 A basic pong game using SVGs.
 
 ## Setup
